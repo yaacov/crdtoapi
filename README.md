@@ -7,7 +7,7 @@ crdtoapi is a tool that creates an OpenAPI definitions file from kubernetes Cust
 Use kubernetes CRD definitions to create OpenAPI schema file.
 
 ``` bash
-npm install -g crdtoapi
+npm install --local crdtoapi
 
 # add npm bin path to your PATH, or use full
 # excutable path, e.g. $(npm bin)/crdtoapi

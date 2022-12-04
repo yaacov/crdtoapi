@@ -35,7 +35,11 @@ OpensAPI comunity provide many [tools](https://openapi.tools/), for example
 ``` bash
 # use openapi-generator-cli: 
 #   npm i --location=global @openapitools/openapi-generator-cli
-openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o generated -i openapi.yaml
+openapi-generator-cli generate \
+  -g typescript-fetch \
+  --skip-validate-spec \
+  -o generated \
+  -i openapi.yaml
 ```
 
 ## Build

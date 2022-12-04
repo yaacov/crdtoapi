@@ -12,7 +12,7 @@ const program = new Command();
 program
   .version("0.0.6")
   .description("Convert CRDs to OpenAPI file")
-  .option("-i, --in <dir>", "Input directory path [Required]")
+  .option("-i, --in <dir>", "Input directory path - required")
   .option("-o, --out <file>", "Output file name")
   .option("-t, --title <text>", "Module title")
   .option("-d, --description <text>", "Module description")
@@ -26,6 +26,11 @@ program
   .parse(process.argv);
 
 const options = program.opts();
+
+if (!options.in) {
+    console.log("error: missing mandatory argument --in");
+    process.exit(1);
+}
 
 type License = "Apache-2.0" | "BSD-3" | "BSD-2" | "GPL-3.0" | "GPL-2.0" | "MIT" | "MPL" | "ISC";
 type Schemas = { [id: string] : Record<string, unknown>; };
@@ -78,7 +83,8 @@ const readSchema = async (filePath: string): Promise<Schemas> => {
             schemas[name] = version.schema.openAPIV3Schema;
         });
     } catch (error) {
-        console.error("Error occurr ed while reading input file", error);
+        console.log(`error occurr ed while reading input file (${error})`);
+        process.exit(1);
     }
 
     return schemas;
@@ -103,7 +109,8 @@ const readSchemaDir = async (dirPath: string): Promise<Schemas> => {
             schemas = Object.assign({}, schemas, data );
         }
     } catch (error) {
-       console.error("Error occurr ed while reading the input directory", error);
+       console.log(`error occurr ed while reading the input directory (${error})`);
+       process.exit(1);
     }
 
     return schemas;
@@ -143,12 +150,6 @@ const createOpenAPIFile = async (): Promise<string> => {
     }
     return dump(out);
 };
-
-if (!options.in) {
-    console.error('Error: Input directory is required\n');
-
-    program.help();
-}
 
 createOpenAPIFile().then((outString) => { 
     if (options.out) {

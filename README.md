@@ -30,7 +30,7 @@ crdtoapi -i ./examples/forklift/ \
 
 
 # use openapi-generator-cli: 
-#   npm i -g @openapitools/openapi-generator-cli
+#   npm i --local @openapitools/openapi-generator-cli
 openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o generated -i openapi.yaml
 ```
 

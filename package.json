@@ -1,0 +1,40 @@
+{
+  "name": "crdtoapi",
+  "version": "0.0.5",
+  "description": "CustomResourceDefinitions to OpensAPI",
+  "homepage": "https://github.com/yaacov/crdtoapi",
+  "main": "index.js",
+  "bin": {
+    "crdtoapi": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "clean": "rm -rf ./dist ./generated openapitools.json",
+    "cleanall": "npm run clean && rm -rf ./node_modules",
+    "lint": "npx eslint ./src",
+    "lint:fix": "npx eslint ./src --fix",
+    "generate": "npx openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o generated -i"
+  },
+  "keywords": [
+    "k8s",
+    "kubernetes",
+    "CRD",
+    "CustomResourceDefinitions",
+    "OpensAPI"
+  ],
+  "author": "Yaacov Zamir <kobi.zamir@gmail.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "commander": "^9.4.1",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^18.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.29.0",
+    "typescript": "^4.9.3"
+  }
+}

@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/crdtoapi.svg)](https://badge.fury.io/js/crdtoapi)
+
 # CustomResourceDefinitions to OpensAPI
 
 crdtoapi is a tool that creates an [OpenAPI](https://www.openapis.org/) definitions file from [kubernetes](https://kubernetes.io/) [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).

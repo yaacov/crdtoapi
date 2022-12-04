@@ -105,3 +105,6 @@ dist
 
 dist/
 generated/
+
+openapi.yaml
+openapitools.json

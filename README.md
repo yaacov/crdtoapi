@@ -2,7 +2,7 @@
 
 crdtoapi is a tool that creates an OpenAPI definitions file from kubernetes CustomResourceDefinitions.
 
-## Quick start
+## Usage
 
 Use kubernetes CRD definitions to create OpenAPI schema file.
 
@@ -14,6 +14,24 @@ npm install -g crdtoapi
 crdtoapi --help
 
 crdtoapi -i ./examples/forklift/ -o openapi.yaml
+```
+
+## Generate some API
+
+``` bash
+# create an OpenAPI file
+crdtoapi -i ./examples/forklift/ \
+  -o openapi.yaml \
+  -t "Forklift API" \
+  -d "Forklift migration toolkit API definitions." \
+  -l "Apache-2.0" \
+  --apiVersion "2.4.0" \
+  --contactEmail kubev2v-dev@redhat.com
+
+
+# use openapi-generator-cli: 
+#   npm i -g @openapitools/openapi-generator-cli
+openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o generated -i openapi.yaml
 ```
 
 ## Build

@@ -10,7 +10,7 @@ import path from "path";
  */
 const program = new Command();
 program
-  .version("0.0.5")
+  .version("0.0.6")
   .description("Convert CRDs to OpenAPI file")
   .option("-i, --in <dir>", "Input directory path [Required]")
   .option("-o, --out <file>", "Output file name")
@@ -119,7 +119,7 @@ const createOpenAPIFile = async (): Promise<string> => {
     const data = await readSchemaDir(options.in);
 
     const out = {
-        openapi: "3.0.0",
+        openapi: "3.1.0",
         info: {
             description: options.description,
             title: options.title,

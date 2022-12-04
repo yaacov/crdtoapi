@@ -1,6 +1,6 @@
 {
   "name": "crdtoapi",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "CustomResourceDefinitions to OpensAPI",
   "homepage": "https://github.com/yaacov/crdtoapi",
   "main": "index.js",

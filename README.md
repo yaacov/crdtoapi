@@ -9,6 +9,8 @@ Use kubernetes CRD definitions to create OpenAPI schema file.
 ``` bash
 npm install -g crdtoapi
 
+# add npm bin path to your PATH, or use full
+# excutable path, e.g. $(npm bin)/crdtoapi
 crdtoapi --help
 
 crdtoapi -i ./examples/forklift/ -o openapi.yaml
@@ -19,6 +21,7 @@ crdtoapi -i ./examples/forklift/ -o openapi.yaml
 Run this scripts to lint and publish the package.
 
 ``` bash
+npm install
 npm run lint:fix
 npm run build
 npm publish

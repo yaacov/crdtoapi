@@ -17,6 +17,7 @@ program
   .option("-t, --title <text>", "Module title")
   .option("-d, --description <text>", "Module description")
   .option("-l, --license <text>", "Module license")
+  .option("-m, --match <text>", "match files regexp")
   .option("--licenseURL <text>", "Module license link")
   .option("--contactName <text>", "Module contact name")
   .option("--contactEmail <text>", "Module contact email")
@@ -30,6 +31,11 @@ const options = program.opts();
 if (!options.in) {
     console.log("error: missing mandatory argument --in");
     process.exit(1);
+}
+
+let regexpMath: RegExp | undefined = undefined;
+if (options.match) {
+    regexpMath = new RegExp(options.match);
 }
 
 type License = "Apache-2.0" | "BSD-3" | "BSD-2" | "GPL-3.0" | "GPL-2.0" | "MIT" | "MPL" | "ISC";
@@ -103,6 +109,11 @@ const readSchemaDir = async (dirPath: string): Promise<Schemas> => {
         const files = await readdir(dirPath);    
 
         for (const file of files) {
+            // If file don't match pattern, continue.
+            if (regexpMath && file.match(regexpMath) === null) {
+                continue;
+            }
+
             const filePath = path.join(dirPath, file);
 
             const data = await readSchema(filePath);

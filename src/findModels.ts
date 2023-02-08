@@ -9,7 +9,7 @@ import Mustache from 'mustache';
 const FileTemplate = `// Auto generated from k8s CRD file
 //  see: https://github.com/yaacov/crdtoapi
 
-const {{kind}}Model = {
+export const {{kind}}Model = {
   label: '{{label}}',
   labelPlural: '{{label}}s',
 
@@ -31,8 +31,6 @@ export const {{kind}}ModelGroupVersionKind ={
   group: '{{apiGroup}}',
 };
 export const {{kind}}ModelRef = '{{apiGroup}}~{{apiVersion}}~{{kind}}';
-
-export default {{kind}}Model;
 `;
 
 /**
@@ -40,7 +38,7 @@ export default {{kind}}Model;
  */
 const program = new Command();
 program
-  .version("0.0.10")
+  .version("0.0.11")
   .description("Convert CRDs to Group Version Kind Typescript constants")
   .option("-i, --in <file>", "Input directory path - required")
   .option("-o, --out <file>", "Output directory name")
@@ -177,19 +175,28 @@ const readSchemaDir = async (dirPath: string): Promise<Models> => {
  */
 const creatModelTSFiles = async (): Promise<boolean> => {
     const data = await readSchemaDir(options.in);
+    let indexFileText = '';
 
     for (const [key, model] of Object.entries(data)) {
         const fileName = `${key}.ts`
         const fileText = Mustache.render(FileTemplate, model);
 
+        // output one file
         if (options.out) {
             writeFile(path.normalize(`${options.out}/${fileName}`), fileText);
+            indexFileText = indexFileText + `export * from './${key}';\n`
         } else {
             console.log(`${fileName}:`);
             console.log(fileText);
             console.log();
         }
     }
+
+    // dump index file
+    if (options.out) {
+        writeFile(path.normalize(`${options.out}/index.ts`), indexFileText);
+    }
+
     return true;
 };
 

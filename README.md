@@ -27,6 +27,15 @@ crdtoapi -i ./examples/forklift/ -o openapi.yaml \
   --contactEmail "kubev2v-dev@redhat.com"
 ```
 
+Use kubernetes CRD definitions to create Typescript resource constants.
+``` bash
+crdtomodel --help
+
+# create typescropt constant files in ./tmp dir
+mkdir tmp
+crdtomodel -i ./examples/forklift/ -o ./tmp
+```
+
 ## Generate some API
 
 OpensAPI comunity provide many [tools](https://openapi.tools/), for example 

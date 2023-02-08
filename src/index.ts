@@ -10,7 +10,7 @@ import path from "path";
  */
 const program = new Command();
 program
-  .version("0.0.7")
+  .version("0.0.10")
   .description("Convert CRDs to OpenAPI file")
   .option("-i, --in <dir>", "Input directory path - required")
   .option("-o, --out <file>", "Output file name")

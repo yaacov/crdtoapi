@@ -1,11 +1,12 @@
 {
   "name": "crdtoapi",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "CustomResourceDefinitions to OpensAPI",
   "homepage": "https://github.com/yaacov/crdtoapi",
   "main": "index.js",
   "bin": {
-    "crdtoapi": "./dist/index.js"
+    "crdtoapi": "./dist/index.js",
+    "crdtomodel": "./dist/findModels.js"
   },
   "scripts": {
     "build": "npx tsc",
@@ -26,11 +27,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "commander": "^9.4.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "mustache": "^4.2.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@types/js-yaml": "^4.0.5",
+    "@types/mustache": "^4.2.2",
     "@types/node": "^18.11.10",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",

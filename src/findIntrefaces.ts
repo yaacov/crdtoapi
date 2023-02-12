@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { load, Schema } from "js-yaml";
+import { load } from "js-yaml";
 import { readFile, writeFile } from "fs/promises";
 
 /**
@@ -34,7 +34,7 @@ interface LicenseObject {
     name: string;
     identifier?: string;
     url?: string;
-};
+}
 
 /** InfoObject
  * 
@@ -50,7 +50,7 @@ interface InfoObject {
         url?: string;
         email?: string; 	
     }; 
-};
+}
 
 /** BasicSchemaTypes
  *
@@ -97,17 +97,17 @@ interface BasicSchemaObject {
     description?: string;
 
     format?: SchemaFormats;
-    enum?: any[]; // type is union of enums
+    enum?: undefined[]; // type is union of enums
     pattern?: string;
-    default?: any;
-};
+    default?: undefined;
+}
 
 interface ArraySchemaObject {
     type: 'array';
     description?: string;
 
     items: SchemaObject;
-};
+}
 
 interface ObjectSchemaObject {
     type: 'object';
@@ -117,7 +117,7 @@ interface ObjectSchemaObject {
         [name: string]: SchemaObject;
     };
     required?: string[];
-};
+}
 
 type SchemaObject =
     BasicSchemaObject | ArraySchemaObject | ObjectSchemaObject;
@@ -130,7 +130,7 @@ interface ComponentsObject {
     schemas?: {
         [id: string] : SchemaObject;
     };
-};
+}
 
 /** OpenAPIObject
  * 
@@ -152,9 +152,9 @@ interface TypeScriptTypeField {
     type: string;
     isArray?: boolean;
     format?: SchemaFormats;
-    enum?: any[]; // type is union of enums
+    enum?: undefined[]; // type is union of enums
     pattern?: string;
-    default?: any;
+    default?: undefined;
     required?: boolean;
 }
 
@@ -165,10 +165,6 @@ interface TypeScriptTypeField {
 interface TypeScriptType {
     name: string;
     description?: string;
-    format?: SchemaFormats;
-    enum?: any[]; // type is union of enums
-    pattern?: string;
-    default?: any;
     fields: { [id: string] : TypeScriptTypeField };
     required?: string[];
 }
@@ -188,12 +184,14 @@ const schemaTypes: { [id: string] : TypeScriptType } = {};
  * @param isArray is the field an array field
  */
 const extractTypes = (parent: string, field: string, schema: SchemaObject, isArray = false) => {
+    let type: string;
+
     switch (schema.type) {
         case 'array':
             extractTypes(parent, field, schema.items, true);
             break;
         case 'object':
-            const type = `${parent}${field.charAt(0).toUpperCase() + field.slice(1)}`;
+            type = `${parent}${field.charAt(0).toUpperCase() + field.slice(1)}`;
 
             // Init new type
             schemaTypes[type] = {

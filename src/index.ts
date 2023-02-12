@@ -145,11 +145,11 @@ const createOpenAPIFile = async (): Promise<string> => {
             contact: {
                 url: options.contactURL,
                 email: options.contactEmail,
-            }
-        },
-        license: {
-            name: options.license,
-            url: licenseURL,
+            },
+            license: {
+                name: options.license,
+                url: licenseURL,
+            },
         },
         components: {
             schemas: data,

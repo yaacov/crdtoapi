@@ -1,6 +1,6 @@
 # OpenAPI to Typescript Interfaces
 
-crdtotype is a tool that creates Typespcript interfaces from [OpenAPI](https://www.openapis.org/) definition files.
+crdtotypes is a tool that creates Typespcript interfaces from [OpenAPI](https://www.openapis.org/) definition files.
 
 ## Usage
 
@@ -11,11 +11,11 @@ npm install --location=global crdtoapi
 
 # add npm bin path to your PATH, or use full
 # excutable path, e.g. $(npm bin --location=global)/crdtoapi
-crdtotype --help
+crdtotypes --help
 
 # create typescript interface files in ./tmp dir
 mkdir tmp
-crdtotype -i openapi.yaml -o ./tmp --out ./tmp
+crdtotypes -i openapi.yaml -o ./tmp --out ./tmp
 ```
 
 The tool will add the `IoK8sApimachineryPkgApisMetaV1ObjectMeta` definition file, and an `index` file to the output direcotry.

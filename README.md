@@ -2,7 +2,7 @@
 
 # CustomResourceDefinitions to Typescript API
 
-crdtoapi are a collection of tools that auto generate Typescript interfaces and constants out of [OpenAPI](https://www.openapis.org/)  and [kubernetes](https://kubernetes.io/) [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) files.
+crdtoapi is a collection of tools that auto generate Typescript interfaces and constants out of [OpenAPI](https://www.openapis.org/)  and [kubernetes](https://kubernetes.io/) [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) files.
 
 Tools:
 

@@ -41,7 +41,7 @@ export const {{kind}}ModelRef = '{{apiGroup}}~{{apiVersion}}~{{kind}}';
  */
 const program = new Command();
 program
-  .version('0.0.11')
+  .version('0.0.12')
   .description('Convert CRDs to Group Version Kind Typescript constants')
   .option('-i, --in <file>', 'Input directory path - required')
   .option('-o, --out <file>', 'Output directory name')

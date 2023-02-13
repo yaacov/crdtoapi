@@ -104,6 +104,7 @@ dist
 .tern-port
 
 dist/
+tmp/
 generated/
 
 openapi.yaml

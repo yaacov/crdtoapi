@@ -13,8 +13,8 @@
     "build": "npx tsc",
     "clean": "rm -rf ./dist ./generated openapitools.json",
     "cleanall": "npm run clean && rm -rf ./node_modules",
-    "lint": "npx eslint ./src",
-    "lint:fix": "npx eslint ./src --fix",
+    "lint": "npx eslint ./src -c .eslintrc.cjs",
+    "lint:fix": "npx eslint ./src -c .eslintrc.cjs --fix",
     "generate": "npx openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o generated -i"
   },
   "keywords": [
@@ -32,13 +32,15 @@
     "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/mustache": "^4.2.2",
     "@types/node": "^18.11.10",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
     "typescript": "^4.9.3"
   }
 }

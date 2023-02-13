@@ -2,53 +2,24 @@
 
 # CustomResourceDefinitions to OpensAPI
 
-crdtoapi is a tool that creates an [OpenAPI](https://www.openapis.org/) definitions file from [kubernetes](https://kubernetes.io/) [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+crdtoapi are a collection of tools that auto generate Typescript interfaces and constants out of [OpenAPI](https://www.openapis.org/)  and [kubernetes](https://kubernetes.io/) [CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) files.
 
-## Usage
+Tools:
 
-Use kubernetes CRD definitions to create OpenAPI schema file.
+| Name | description |
+|------|-------------|
+| [crdtoapi](./README.crdtoapi.md) | tool to genrate OpenAPI definition files out of Kubernetes CRDs |
+| [crdtomodel](./README.crdtomodel.md) | tool to genrate Typescropt constants out of Kubernetes CRDs |
+| [crdtotypes](./README.crdtotypes.md) | tool to genrate Typescropt interfaces out of OpenAPI definitions |
+
+
+## Install
+
 
 ``` bash
 npm install --location=global crdtoapi
-
-# add npm bin path to your PATH, or use full
-# excutable path, e.g. $(npm bin --location=global)/crdtoapi
-crdtoapi --help
-
-# create an OpenAPI file
-crdtoapi -i ./examples/forklift/
-
-# create an OpenAPI file using flags
-crdtoapi -i ./examples/forklift/ -o openapi.yaml \
-  --title "Forklift API" \
-  --description "Migration toolkit for virtualization (Forklift) API definitions." \
-  --license "Apache-2.0" \
-  --apiVersion "2.4.0" \
-  --contactEmail "kubev2v-dev@redhat.com"
 ```
 
-Use kubernetes CRD definitions to create Typescript resource constants.
-``` bash
-crdtomodel --help
-
-# create typescropt constant files in ./tmp dir
-mkdir tmp
-crdtomodel -i ./examples/forklift/ -o ./tmp
-```
-
-## Generate some API
-
-OpensAPI comunity provide many [tools](https://openapi.tools/), for example 
-`openapi-generator-cli` is a tool for auto code generation using OpenAPI definition files.
-
-``` bash
-# use openapi-generator-cli: 
-#   npm i --location=global @openapitools/openapi-generator-cli
-openapi-generator-cli generate \
-  -g typescript-fetch \
-  --skip-validate-spec \
-  -o generated \
-  -i openapi.yaml
 ```
 
 ## Build

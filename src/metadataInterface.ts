@@ -66,7 +66,7 @@ export interface IoK8sApimachineryPkgApisMetaV1OwnerReference {
 export interface IoK8sApimachineryPkgApisMetaV1ObjectMeta {
   /**
    * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-   * @type {{ [key: string]: string; }}
+   * @type &#123;{ [key: string]: string; }&#125;
    * @memberof IoK8sApimachineryPkgApisMetaV1ObjectMeta
    */
   annotations?: { [key: string]: string };
@@ -112,7 +112,7 @@ export interface IoK8sApimachineryPkgApisMetaV1ObjectMeta {
   generation?: number;
   /**
    * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
-   * @type {{ [key: string]: string; }}
+   * @type &#123;{ [key: string]: string; }&#125;
    * @memberof IoK8sApimachineryPkgApisMetaV1ObjectMeta
    */
   labels?: { [key: string]: string };

@@ -34,7 +34,7 @@ const IntrefaceHeaderemplate = `/**
  */
 const program = new Command();
 program
-  .version('0.0.12')
+  .version('0.0.13')
   .description('Extract Typescropt interfaces from OpenAPI file')
   .option('-i, --in <file>', 'OpenAPI file - required')
   .option('-o, --out <dir>', 'Output directory name (defatult: no output)')

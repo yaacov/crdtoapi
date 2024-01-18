@@ -34,7 +34,7 @@ const IntrefaceHeaderemplate = `/**
  */
 const program = new Command();
 program
-  .version('0.0.13')
+  .version('0.0.15')
   .description('Extract Typescropt interfaces from OpenAPI file')
   .option('-i, --in <file>', 'OpenAPI file - required')
   .option('-o, --out <dir>', 'Output directory name (defatult: no output)')
@@ -287,7 +287,13 @@ const extractTypes = (parent: string, field: string, schema: SchemaObject, isArr
  */
 const readSchema = async (filePath: string) => {
   try {
-    yaml = load(await readFile(filePath, 'utf8')) as OpenAPIObject;
+    const fileContent = await readFile(filePath, 'utf8');
+
+    if (filePath.endsWith('.json')) {
+      yaml = JSON.parse(fileContent) as OpenAPIObject;
+    } else {
+      yaml = load(fileContent) as OpenAPIObject;
+    }
 
     for (const [key, schema] of Object.entries(yaml.components?.schemas || {})) {
       extractTypes('', key, schema);

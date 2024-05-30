@@ -252,7 +252,7 @@ const extractTypes = (parent: string, field: string, schema: SchemaObject, isArr
           isObject: true,
           description: schema.description,
 
-          required: field in (schemaTypes[parent].required || []),
+          required: (schemaTypes[parent].required || []).indexOf(field) > -1,
         };
       }
 

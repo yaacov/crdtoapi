@@ -1,8 +1,8 @@
 /**
- * Mustache templates file for findIntercases utility
+ * Mustache template file for findInterfaces utility
  */
 
-export const metaDataInerfaceTemplate = `/**
+export const metadataInterfaceTemplate = `/**
  * {{openAPITitle}}
  * {{openAPIDescription}}
  *

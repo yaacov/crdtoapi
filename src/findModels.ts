@@ -42,7 +42,7 @@ export const {{kind}}ModelRef = '{{apiGroup}}~{{apiVersion}}~{{kind}}';
 const program = new Command();
 program
   .version('0.0.13')
-  .description('Convert CRDs to Group Version Kind Typescript constants')
+  .description('Convert CRDs to Group Version Kind TypeScript constants')
   .option('-i, --in <file>', 'Input directory path - required')
   .option('-o, --out <file>', 'Output directory name')
   .option('-m, --match <text>', 'match files regexp')
@@ -132,7 +132,7 @@ const readModels = async (filePath: string): Promise<Models> => {
       };
     });
   } catch (error) {
-    console.log(`error occurr ed while reading input file (${error})`);
+    console.log(`error occurred while reading input file (${error})`);
     process.exit(1);
   }
 
@@ -163,7 +163,7 @@ const readSchemaDir = async (dirPath: string): Promise<Models> => {
       models = Object.assign({}, models, data);
     }
   } catch (error) {
-    console.log(`error occurr ed while reading the input directory (${error})`);
+    console.log(`error occurred while reading the input directory (${error})`);
     process.exit(1);
   }
 
@@ -171,12 +171,12 @@ const readSchemaDir = async (dirPath: string): Promise<Models> => {
 };
 
 /**
- * Create a Models Typescript constants files from CRDs
+ * Create a Models TypeScript constants files from CRDs
  * Use global CLI options as input
  *
  * @returns Promise<strings>
  */
-const creatModelTSFiles = async (): Promise<boolean> => {
+const createModelTSFiles = async (): Promise<boolean> => {
   const data = await readSchemaDir(options.in);
   let indexFileText = '';
 
@@ -203,6 +203,6 @@ const creatModelTSFiles = async (): Promise<boolean> => {
   return true;
 };
 
-creatModelTSFiles().then(() => {
+createModelTSFiles().then(() => {
   console.log('Done.');
 });

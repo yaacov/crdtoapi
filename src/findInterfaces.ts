@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import { load } from 'js-yaml';
 import { readFile } from 'fs/promises';
 import Mustache from 'mustache';
-import { metaDataInerfaceTemplate } from './metadataInterface';
+import { metadataInterfaceTemplate } from './metadataInterface';
 import path from 'path';
 import { writeFileSync } from 'fs';
 
@@ -22,7 +22,7 @@ const FileHeaderTemplate = `/**
 
 `;
 
-const IntrefaceHeaderemplate = `/**
+const interfaceHeaderTemplate = `/**
  * {{description}}
  *
  * @export
@@ -35,17 +35,17 @@ const IntrefaceHeaderemplate = `/**
 const program = new Command();
 program
   .version('0.0.15')
-  .description('Extract Typescropt interfaces from OpenAPI file')
+  .description('Extract TypeScript interfaces from OpenAPI file')
   .option('-i, --in <file>', 'OpenAPI file - required')
-  .option('-o, --out <dir>', 'Output directory name (defatult: no output)')
-  .option('-j, --json', 'Dump JSON output for debugging (defatult: false)')
+  .option('-o, --out <dir>', 'Output directory name (default: no output)')
+  .option('-j, --json', 'Dump JSON output for debugging (default: false)')
   .option(
     '--metadataType <string>',
-    'Override metadata fields with type (defatult: IoK8sApimachineryPkgApisMetaV1ObjectMeta)',
+    'Override metadata fields with type (default: IoK8sApimachineryPkgApisMetaV1ObjectMeta)',
   )
   .option(
     '--fallbackType <string>',
-    'Override for field with missing type(defatult: unknown | null;)',
+    'Override for field with missing type(default: unknown | null;)',
   )
   .parse(process.argv);
 
@@ -171,7 +171,7 @@ interface OpenAPIObject {
   components?: ComponentsObject;
 }
 
-/** Typescript type field
+/** TypeScript type field
  *
  * Describe a field in a type or interface
  */
@@ -189,7 +189,7 @@ interface TypeScriptTypeField {
   required?: boolean;
 }
 
-/** Typescript type field
+/** TypeScript type field
  *
  * Describe a type or interface
  */
@@ -209,7 +209,7 @@ interface TypeScriptType {
 let yaml: OpenAPIObject;
 
 /**
- * Store all the Typescript types we can extract from
+ * Store all the TypeScript types we can extract from
  * the input schema
  */
 const schemaTypes: { [id: string]: TypeScriptType } = {};
@@ -217,7 +217,7 @@ const schemaTypes: { [id: string]: TypeScriptType } = {};
 // GLOBALS END
 
 /**
- * Extract Typescropt types from a SchemaObject
+ * Extract TypeScript types from a SchemaObject
  *
  * @param parent is the name of the parent type
  * @param field current field name in tree
@@ -252,7 +252,7 @@ const extractTypes = (parent: string, field: string, schema: SchemaObject, isArr
           isObject: true,
           description: schema.description,
 
-          required: field in (schemaTypes[parent].required || []),
+          required: (schemaTypes[parent].required || []).indexOf(field) > -1,
         };
       }
 
@@ -299,7 +299,7 @@ const readSchema = async (filePath: string) => {
       extractTypes('', key, schema);
     }
   } catch (error) {
-    console.log(`error occurr ed while reading input file (${error})`);
+    console.log(`error occurred while reading input file (${error})`);
     process.exit(1);
   }
 
@@ -307,7 +307,7 @@ const readSchema = async (filePath: string) => {
 };
 
 /**
- * Take the global schemaTypes variable and convert it to typescrtipt descriptions
+ * Take the global schemaTypes variable and convert it to TypeScript descriptions
  *
  * @returns a reduced version of the schemas
  */
@@ -359,7 +359,7 @@ const reduceSchema = (schemaList: {
         field.required = true;
       }
 
-      // map types to typestring types
+      // map types to TypeScript types
       // ---
       // check for 'date' type
       if (field.type === 'date') {
@@ -368,7 +368,7 @@ const reduceSchema = (schemaList: {
         field.format = field.format || 'date';
       }
 
-      // chekc for 'integer' type
+      // check for 'integer' type
       if (field.type === 'integer') {
         field.originalType = field.type;
         field.type = 'number';
@@ -407,7 +407,7 @@ readSchema(options.in).then(() => {
     console.log(JSON.stringify(output));
   }
 
-  // output imterface files
+  // output interface files
   if (options.out) {
     const headerTemplateData = {
       openAPITitle: yaml.info.title,
@@ -442,7 +442,7 @@ readSchema(options.in).then(() => {
             parent: tsInterface.type.parent,
           };
           outCodeText =
-            outCodeText + Mustache.render(IntrefaceHeaderemplate, interfaceTemplateData);
+            outCodeText + Mustache.render(interfaceHeaderTemplate, interfaceTemplateData);
         }
         outCodeText = outCodeText + `export interface ${tsInterface.type.name} {\n`;
 
@@ -484,7 +484,7 @@ readSchema(options.in).then(() => {
     // output metadata interface file
     // ---
     let outMetadataCodeText = '';
-    outMetadataCodeText = Mustache.render(metaDataInerfaceTemplate, headerTemplateData);
+    outMetadataCodeText = Mustache.render(metadataInterfaceTemplate, headerTemplateData);
     writeFileSync(path.normalize(`${options.out}/${options.metadataType}.ts`), outMetadataCodeText);
     // ---
 

@@ -89,7 +89,7 @@ const readSchema = async (filePath: string): Promise<Schemas> => {
       schemas[name] = version.schema.openAPIV3Schema;
     });
   } catch (error) {
-    console.log(`error occurr ed while reading input file (${error})`);
+    console.log(`error occurred while reading input file (${error})`);
     process.exit(1);
   }
 
@@ -120,7 +120,7 @@ const readSchemaDir = async (dirPath: string): Promise<Schemas> => {
       schemas = Object.assign({}, schemas, data);
     }
   } catch (error) {
-    console.log(`error occurr ed while reading the input directory (${error})`);
+    console.log(`error occurred while reading the input directory (${error})`);
     process.exit(1);
   }
 

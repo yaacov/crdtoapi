@@ -7,7 +7,7 @@
   "bin": {
     "crdtoapi": "./dist/index.js",
     "crdtomodel": "./dist/findModels.js",
-    "crdtotypes": "./dist/findIntrefaces.js"
+    "crdtotypes": "./dist/findInterfaces.js"
   },
   "scripts": {
     "build": "npx tsc",

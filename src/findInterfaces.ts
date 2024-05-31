@@ -132,6 +132,10 @@ interface BasicSchemaObject {
   default?: unknown;
 }
 
+interface AdditionalPropertiesSchemaObject {
+  type: string;
+}
+
 interface ArraySchemaObject {
   type: 'array';
   description?: string;
@@ -143,6 +147,7 @@ interface ObjectSchemaObject {
   type: 'object';
   description?: string;
 
+  additionalProperties?: AdditionalPropertiesSchemaObject | boolean;
   properties?: {
     [name: string]: SchemaObject;
   };
@@ -187,6 +192,7 @@ interface TypeScriptTypeField {
   pattern?: string;
   default?: unknown;
   required?: boolean;
+  additionalProperties?: AdditionalPropertiesSchemaObject | boolean;
 }
 
 /** TypeScript type field
@@ -251,6 +257,7 @@ const extractTypes = (parent: string, field: string, schema: SchemaObject, isArr
           isArray: isArray,
           isObject: true,
           description: schema.description,
+          additionalProperties: schema.additionalProperties,
 
           required: (schemaTypes[parent].required || []).indexOf(field) > -1,
         };
@@ -345,9 +352,21 @@ const reduceSchema = (schemaList: {
           field.type = options.metadataType;
           imports.push(field.type);
         }
-        if (!isMetadataField && isObjectUndefined) {
-          field.originalType = 'not defined';
-          field.type = options.fallbackType;
+        if (!isMetadataField) {
+          if (field.additionalProperties) {
+            if (field.additionalProperties === true) {
+              field.originalType = field.type;
+              field.type = '{}';
+            }
+            else if ('type' in field.additionalProperties) {
+              field.originalType = field.type;
+              field.type = `{[key: string]: ${field.additionalProperties.type}}`;
+            }
+          }
+          else if (isObjectUndefined) {
+            field.originalType = 'not defined';
+            field.type = options.fallbackType;
+          }
         }
       }
 

@@ -23,6 +23,7 @@ program
   .option('--contactEmail <text>', 'Module contact email')
   .option('--contactURL <text>', 'Module contact link')
   .option('--apiVersion <text>', 'Module API version')
+  .option('--noApiVersionPrefix', 'Do not prefix types with API version')
   .option('-j, --json', 'output as json')
   .parse(process.argv);
 
@@ -84,7 +85,9 @@ const readSchema = async (filePath: string): Promise<Schemas> => {
     const yaml = load(await readFile(filePath, 'utf8')) as CustomResourceDefinitions;
 
     yaml.spec.versions.forEach((version) => {
-      const name = `${version.name}${yaml.spec.names.kind}`;
+      const name = !options.noApiVersionPrefix ?
+        `${version.name}${yaml.spec.names.kind}` :
+        `${yaml.spec.names.kind}`;
 
       schemas[name] = version.schema.openAPIV3Schema;
     });

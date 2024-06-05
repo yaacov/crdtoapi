@@ -85,9 +85,9 @@ const readSchema = async (filePath: string): Promise<Schemas> => {
     const yaml = load(await readFile(filePath, 'utf8')) as CustomResourceDefinitions;
 
     yaml.spec.versions.forEach((version) => {
-      const name = !options.noApiVersionPrefix ?
-        `${version.name}${yaml.spec.names.kind}` :
-        `${yaml.spec.names.kind}`;
+      const name = !options.noApiVersionPrefix
+        ? `${version.name}${yaml.spec.names.kind}`
+        : `${yaml.spec.names.kind}`;
 
       schemas[name] = version.schema.openAPIV3Schema;
     });

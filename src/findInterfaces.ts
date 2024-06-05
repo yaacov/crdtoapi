@@ -357,13 +357,11 @@ const reduceSchema = (schemaList: {
             if (field.additionalProperties === true) {
               field.originalType = field.type;
               field.type = '{}';
-            }
-            else if ('type' in field.additionalProperties) {
+            } else if ('type' in field.additionalProperties) {
               field.originalType = field.type;
               field.type = `{[key: string]: ${field.additionalProperties.type}}`;
             }
-          }
-          else if (isObjectUndefined) {
+          } else if (isObjectUndefined) {
             field.originalType = 'not defined';
             field.type = options.fallbackType;
           }
